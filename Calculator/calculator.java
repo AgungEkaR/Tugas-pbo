@@ -1,52 +1,59 @@
+
 /**
  * Write a description of class Calculator here.
  *
  * @author (your name)
  * @version (a version number or a date)
  */
-public class ticketMachine {
-    private int price;    
-    private int balance; 
-    private int total;  
+import java.util.Scanner;
 
-    public ticketMachine(int cost) {
-        if (cost > 0) {
-            price = cost;
-        } else {
-            System.out.println("Not a valid price");
+public class Calculator {
+
+    private Operation operation;
+
+    public Calculator() {
+        operation = new Operation();
+    }
+
+    public void calculate() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter first number: ");
+        double num1 = scanner.nextDouble();
+
+        System.out.println("Enter an operator (+, -, *, /): ");
+        char operator = scanner.next().charAt(0);
+
+        System.out.println("Enter second number: ");
+        double num2 = scanner.nextDouble();
+
+        double result = 0;
+
+        switch (operator) {
+            case '+':
+                result = operation.add(num1, num2);
+                break;
+            case '-':
+                result = operation.subtract(num1, num2);
+                break;
+            case '*':
+                result = operation.multiply(num1, num2);
+                break;
+            case '/':
+                result = operation.divide(num1, num2);
+                break;
+            default:
+                System.out.println("Error: Invalid operator.");
+                break;
         }
-        balance = 0;
-        total = 0;
+
+        System.out.println("The result is: " + result);
     }
 
-    public int getPrice() {
-        return price;
-    }
-
-    public int getBalance() {
-        return balance;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-    
-    public void insert(int amount) {
-        if (amount > 0) {
-            balance += amount;
-        } else {
-            System.out.println("Not a valid money");
-        }
-    }
-
-    public void getTicket() {
-        if (balance >= price) {
-            System.out.println("A ticket would cost Rp" + price);
-            total += price;
-            balance -= price;
-        } else {
-            System.out.println("Not enough money");
-            System.out.println("You must insert at least Rp" + (price - balance));
-        }
+    public static void startCalculate() {
+        Calculator calc = new Calculator();
+        calc.calculate();
     }
 }
+
+
